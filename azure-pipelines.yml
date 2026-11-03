@@ -1,16 +1,34 @@
-# Maven
-# Build your Java project and run tests with Apache Maven.
-# Add steps that analyze code, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/java
+# example file for 3thanPSC.pipelines-java azure-pipelines.yml
+# 
+# Deploy and compile pipeline
+# v0.1
 
-trigger:
-- main
+variables:
+  DLC: /opt/progress/openedge
+  PROPATH: /opt/progress/openedge
+  SRC_DIR: $(Build.SourcesDirectory)
+  BUILD_DIR: $(Build.SourcesDirectory)/build
+  ASSETS: /home/svc-DecadeADO/.azcli/assets
+  PROGRADLE: /data/progress/oe128/bin/progradle
+  JAVA_HOME: '/usr/lib/jvm/java-17-openjdk'
+
+name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd).$(Rev:r)
+
+trigger: 
+    - none
+
+resources:
+  repositories:
+    - repository: examples          
+      type: git                        
+      name: Decade/examples    
+      ref: main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-24.04'
 
 steps:
-- task: Maven@3
+- task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
