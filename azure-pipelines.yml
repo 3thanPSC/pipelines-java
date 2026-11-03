@@ -3,9 +3,26 @@
 # Deploy and compile pipeline
 # v0.1
 
+variables:
+  DLC: /opt/progress/openedge
+  PROPATH: /opt/progress/openedge
+  SRC_DIR: $(Build.SourcesDirectory)
+  BUILD_DIR: $(Build.SourcesDirectory)/build
+  ASSETS: /home/svc-DecadeADO/.azcli/assets
+  PROGRADLE: /data/progress/oe128/bin/progradle
+  JAVA_HOME: '/usr/lib/jvm/java-17-openjdk'
+
 name: $(TeamProject)_$(Build.DefinitionName)_$(SourceBranchName)_$(Date:yyyyMMdd).$(Rev:r)
 
-trigger: none
+trigger: 
+    - none
+
+resources:
+  repositories:
+  - repository: examples
+    type: git
+    name: examples/pipeline
+    ref: main
 
 pool:
   vmImage: 'ubuntu-24.04'
