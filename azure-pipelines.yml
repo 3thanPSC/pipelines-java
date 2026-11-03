@@ -32,10 +32,9 @@ steps:
   inputs:
     mavenPomFile: 'pom.xml'
     mavenOptions: '-Xmx3072m'
-    publishJUnitResults: true
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.8'
+    jdkArchitectureOption: 'x64'
+    publishJUnitResults: false
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-    # Use the options below to explicitly define the JDK
-    javaHomeOption: 'JDKVersion' 
-    jdkVersionOption: '1.17' # Options include: 1.8, 1.11, 1.17, 1.21
-    jdkArchitectureOption: 'x64'
